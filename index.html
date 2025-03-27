@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kalkulator_expert_hilmi</title>
+    <style>
+        body {
+            background-color: #181818;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .calculator {
+            background: #222;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 5px 5px 15px #111, -5px -5px 15px #333;
+        }
+        .display input {
+            width: 100%;
+            height: 60px;
+            background: #333;
+            border: none;
+            color: white;
+            text-align: right;
+            font-size: 2rem;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            background: #444;
+            color: white;
+            border: none;
+            padding: 20px;
+            font-size: 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:active {
+            box-shadow: inset 3px 3px 6px #111, inset -3px -3px 6px #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display">
+            <input type="text" id="result" disabled>
+        </div>
+        <div class="buttons">
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="deleteLast()">⌫</button>
+            <button onclick="appendValue('%')">%</button>
+            <button onclick="appendValue('/')">÷</button>
+
+            <button onclick="appendValue('7')">7</button>
+            <button onclick="appendValue('8')">8</button>
+            <button onclick="appendValue('9')">9</button>
+            <button onclick="appendValue('*')">×</button>
+
+            <button onclick="appendValue('4')">4</button>
+            <button onclick="appendValue('5')">5</button>
+            <button onclick="appendValue('6')">6</button>
+            <button onclick="appendValue('-')">−</button>
+
+            <button onclick="appendValue('1')">1</button>
+            <button onclick="appendValue('2')">2</button>
+            <button onclick="appendValue('3')">3</button>
+            <button onclick="appendValue('+')">+</button>
+
+            <button onclick="appendValue('0')">0</button>
+            <button onclick="appendValue('.')">.</button>
+            <button onclick="calculateResult()">=</button>
+
+            <button onclick="appendValue('Math.sin(')">sin</button>
+            <button onclick="appendValue('Math.cos(')">cos</button>
+            <button onclick="appendValue('Math.tan(')">tan</button>
+            <button onclick="appendValue('Math.log(')">log</button>
+
+            <button onclick="appendValue('Math.sqrt(')">√</button>
+            <button onclick="appendValue('Math.pow(')">x^y</button>
+            <button onclick="appendValue('Math.exp(')">exp</button>
+            <button onclick="factorial()">n!</button>
+        </div>
+    </div>
+    
+    <script>
+        function appendValue(value) {
+            document.getElementById("result").value += value;
+        }
+
+        function clearDisplay() {
+            document.getElementById("result").value = "";
+        }
+
+        function deleteLast() {
+            let input = document.getElementById("result").value;
+            document.getElementById("result").value = input.slice(0, -1);
+        }
+
+        function calculateResult() {
+            try {
+                document.getElementById("result").value = eval(document.getElementById("result").value);
+            } catch (e) {
+                alert("Input tidak valid");
+            }
+        }
+
+        function factorial() {
+            let num = parseInt(document.getElementById("result").value);
+            if (num < 0) {
+                alert("Faktorial tidak bisa negatif!");
+                return;
+            }
+            let fact = 1;
+            for (let i = 1; i <= num; i++) {
+                fact *= i;
+            }
+            document.getElementById("result").value = fact;
+        }
+    </script>
+</body>
+</html>
